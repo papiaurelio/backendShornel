@@ -22,6 +22,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
         services.AddDbContext<StoreDbContext>(opt =>
         {
             opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
