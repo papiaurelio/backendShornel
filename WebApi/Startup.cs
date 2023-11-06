@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApi.Dtos.AutoMapper;
+using WebApi.Middleware;
 
 namespace WebApi;
 
@@ -22,6 +24,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
         services.AddDbContext<StoreDbContext>(opt =>
         {
@@ -33,10 +36,15 @@ public class Startup
 
     public void Configure(IApplicationBuilder App, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment())
-        {
-            App.UseDeveloperExceptionPage();
-        }
+        //if (env.IsDevelopment())
+        //{
+        //    App.UseDeveloperExceptionPage();
+        //}
+
+        //El codigo de arriba ahora lo hace el Middleware que se esta implementando
+        App.UseMiddleware<ExceptionMiddleware>();
+
+        App.UseStatusCodePagesWithReExecute("/errors", "?code={0}");
 
         App.UseRouting();
         App.UseAuthentication();

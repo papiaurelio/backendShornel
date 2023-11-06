@@ -13,7 +13,7 @@ namespace BusinessLogic.Data
     {
         public static IQueryable<T> GetQuery (IQueryable<T> inpuQuery, ISpecification<T> spec)
         {
-            if (inpuQuery != null)
+            if (spec.Criteria != null)
             {
                 inpuQuery = inpuQuery.Where(spec.Criteria);
             }
