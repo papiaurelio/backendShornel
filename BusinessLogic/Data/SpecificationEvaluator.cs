@@ -18,6 +18,16 @@ namespace BusinessLogic.Data
                 inpuQuery = inpuQuery.Where(spec.Criteria);
             }
 
+            if(spec.OrderBy != null)
+            {
+                inpuQuery = inpuQuery.OrderBy(spec.OrderBy);
+            }
+
+            if(spec.OrderByDescending != null)
+            {
+                inpuQuery = inpuQuery.OrderByDescending(spec.OrderByDescending);
+            }
+
             inpuQuery = spec.Includes.Aggregate(inpuQuery, (current, include) => current.Include(include));
 
             return inpuQuery;
