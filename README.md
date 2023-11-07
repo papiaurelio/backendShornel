@@ -29,3 +29,10 @@ dotnet --list-runtimes
 
 
 http://localhost:4204/api/producto?pageIndex=4&pageSize=2
+
+dotnet run -r linux-x64 (ejecutar proyecto linux)
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=tu_contraseña" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2019-latest
+
+
+
