@@ -6,15 +6,15 @@
 ## ---Backend| asp
 
 # Comandos docker
-- (imagen sql server docker)
-* docker pull mcr.microsoft.com/mssql/server 
+__(imagen sql server docker)__
+- docker pull mcr.microsoft.com/mssql/server 
 
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Aurelio444*" -p 1433:1433 -d mcr.microsoft.com/mssql/server
-docker container list
-docker container list -a
-docker start {nombreConteiner}
-##v2 Imagen docker sql
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=tu_contraseña" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2019-latest
+- docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Aurelio444*" -p 1433:1433 -d mcr.microsoft.com/mssql/server
+- docker container list
+- docker container list -a
+- docker start {nombreConteiner}
+__##v2 Imagen docker sql__
+- docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=tu_contraseña" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2019-latest
 
 ## Comandos Dotnet
 https://www.nuget.org/packages/dotnet-ef/8.0.0-rc.2.23480.1
