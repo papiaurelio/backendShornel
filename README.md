@@ -17,6 +17,11 @@ __(imagen sql server docker)__
 __v2 Imagen docker sql__
 - docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=tu_contraseña" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2019-latest
 
+__Instaladcion Redis en un docker container__
+- docker pull redis
+- docker run -d -p 6379:6379 --name aurelioredis redis 
+
+
 ## Comandos Dotnet
 - https://www.nuget.org/packages/dotnet-ef/8.0.0-rc.2.23480.1
 - dotnet --list-runtimes
