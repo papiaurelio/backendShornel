@@ -6,7 +6,7 @@
 ## ---Backend| asp
 
 #Comandos docker
-(imagen sql server docker) \t
+(imagen sql server docker) (\t)
 docker pull mcr.microsoft.com/mssql/server \t
 
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Aurelio444*" -p 1433:1433 -d mcr.microsoft.com/mssql/server
