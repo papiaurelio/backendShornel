@@ -30,7 +30,7 @@ __(Seguridad Identity)__
 -dotnet ef migrations add SeguridadInicio -p BusinessLogic -s WebApi -o Identity/Migrations -c SeguridadDbContext
 
 ## Comandos linux
--dotnet run -r linux-x64 (ejecutar proyecto linux)
+- dotnet run -r linux-x64 (ejecutar proyecto linux)
 
 
 ## Links test app
