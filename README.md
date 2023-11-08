@@ -19,7 +19,10 @@ __v2 Imagen docker sql__
 
 __Instaladcion Redis en un docker container__
 - docker pull redis
-- docker run -d -p 6379:6379 --name aurelioredis redis 
+- docker run -d -p 6379:6379 --name aurelioredis redis
+- docker exec -it aurelioredis sh 
+- redis-cli 
+
 
 
 ## Comandos Dotnet
