@@ -20,6 +20,8 @@ namespace Core.Specifications
 
         private int _pageSize = 3; 
 
+        public string Search { get; set; }
+
         public int PageSize
         {
             get => _pageSize;

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Core.Specifications
 {
-    public class ProductoWithCategoriaAndMarcaSpecification : BaseSpecification<Producto>
+    public class ProductoWithCategoriaAndMarcaSpecification : BaseSpecification <Producto>
     {
         public ProductoWithCategoriaAndMarcaSpecification(ProductoSpecificationParams productoParams)
-            :base (x => (!productoParams.Marca.HasValue || x.MarcaId == productoParams.Marca) && 
-                    (!productoParams.Categoria.HasValue || x.CategoriaId == productoParams.Categoria)
+            :base (x => 
+            (string.IsNullOrEmpty(productoParams.Search) || x.Nombre.Contains(productoParams.Search)) &&
+            (!productoParams.Marca.HasValue || x.MarcaId == productoParams.Marca) && 
+            (!productoParams.Categoria.HasValue || x.CategoriaId == productoParams.Categoria)
             )
         {
             AddInclude(p => p.Categoria); 

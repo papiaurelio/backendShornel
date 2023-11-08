@@ -1,7 +1,9 @@
 namespace WebApi;
 
 using BusinessLogic.Data;
+using Core.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +27,13 @@ public class Program
                 var context = services.GetRequiredService<StoreDbContext>();
                 await context.Database.MigrateAsync();
                 await StoreDbContextData.CargarDataAsync(context, loggerFactory);
+
+                //seguridad
+
+                var userManager = services.GetRequiredService<UserManager<Usuario>>();
+                var identityContext = services.GetRequiredService<SeguridadDbContext>();
+                await identityContext.Database.MigrateAsync();
+                await SeguridadDbContextData.SeedUsersAsync(userManager);
             }
             catch (Exception e)
             {
