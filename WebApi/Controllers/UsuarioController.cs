@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using AutoMapper;
+using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Errors;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers
 {
@@ -17,12 +19,14 @@ namespace WebApi.Controllers
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly ITokenService _tokenServices;
+        private readonly IMapper _mapper;
         public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, 
-            ITokenService tokenServices)
+            ITokenService tokenServices, IMapper maper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenServices = tokenServices;
+            _mapper = maper;
         }
 
         [HttpPost("login")]
@@ -86,8 +90,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<UsuarioDto>> GetUsuario() 
         {
-            var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-            var usuario = await _userManager.FindByEmailAsync(email);
+            var usuario = await _userManager.BuscarUsuarioAsync(User);
 
             return new UsuarioDto
             {
@@ -113,13 +116,30 @@ namespace WebApi.Controllers
         [Authorize]
         [HttpGet("direccion")]
 
-        public async Task<ActionResult<Direccion>> GetDireccion()
+        public async Task<ActionResult<DireccionDto>> GetDireccion()
         {
-            var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-            var usuario = await _userManager.FindByEmailAsync(email);
+            //var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
-            return usuario.Direccion;
+            var usuario = await _userManager.BuscarDireccionUsuarioAsync(User);
+
+            return  _mapper.Map<Direccion, DireccionDto>(usuario.Direccion);
 
         }
+
+        [Authorize]
+        [HttpPut("direccion/editar")]
+
+        public async Task<ActionResult<DireccionDto>> UpdateDireccion(DireccionDto nuevaDireccion)
+        {
+            var usuario = await _userManager.BuscarDireccionUsuarioAsync(User);
+
+            usuario.Direccion = _mapper.Map<DireccionDto, Direccion>(nuevaDireccion);
+            var resultado = await _userManager.UpdateAsync(usuario);
+
+            if (resultado.Succeeded) return Ok(_mapper.Map<Direccion, DireccionDto>(usuario.Direccion));
+
+            return BadRequest("No se pudo actualizar la dirección");
+        }
+
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using System.Text;
 using WebApi.Dtos.AutoMapper;
 using WebApi.Middleware;
@@ -62,7 +63,14 @@ public class Startup
         {
             x.UseSqlServer(Configuration.GetConnectionString("IdentitySeguridad"));
         });
+
+        services.AddSingleton<IConnectionMultiplexer>(c => {
+            var configuracion = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"), true);
+            return ConnectionMultiplexer.Connect(configuracion);
+        });
+
         services.AddTransient<IProductoRepository, ProductoRepository>();
+        services.AddScoped<ICarritoCompraRepository, CarritoCompraRepository>();
         services.AddControllers();
 
         //Que los endpoints sean publicos
