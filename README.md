@@ -3,9 +3,7 @@
 
 # comandos
 
-## ---Backend| asp
-
-# Comandos docker
+## Comandos docker
 __(imagen sql server docker)__
 - docker pull mcr.microsoft.com/mssql/server 
 
