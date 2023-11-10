@@ -15,6 +15,8 @@
                 400 => "El Request contiene errores",
                 401 => "Autorización denegada",
                 404 => "No se econtraron resultados",
+                405 => "Solicitud no válida",
+                415 => "Error de formato",
                 500 => "Se ha producido un error en el servidor",
                 _ => null
             };

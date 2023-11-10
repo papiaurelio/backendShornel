@@ -20,7 +20,9 @@ namespace WebApi.Controllers
         private readonly SignInManager<Usuario> _signInManager;
         private readonly ITokenService _tokenServices;
         private readonly IMapper _mapper;
-        public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, 
+
+        //private readonly IPasswordHasher<Usuario> _passwordHasher;
+        public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager,
             ITokenService tokenServices, IMapper maper)
         {
             _userManager = userManager;
@@ -31,16 +33,16 @@ namespace WebApi.Controllers
 
         [HttpPost("login")]
 
-        public async Task<ActionResult<UsuarioDto>> Login (LoginDto loginDto)
+        public async Task<ActionResult<UsuarioDto>> Login(LoginDto loginDto)
         {
-            var usuario =  await _userManager.FindByEmailAsync(loginDto.Email);
+            var usuario = await _userManager.FindByEmailAsync(loginDto.Email);
             if (string.IsNullOrEmpty(loginDto.Email) || usuario == null)
             {
                 return Unauthorized(new CodeErrorResponse(401, "Email incorrecto"));
             }
 
             var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, loginDto.Password, false);
-            if (!resultado.Succeeded) 
+            if (!resultado.Succeeded)
             {
                 return Unauthorized(new CodeErrorResponse(401, "Contraseña incorrecta"));
             }
@@ -51,7 +53,7 @@ namespace WebApi.Controllers
                 Username = usuario.UserName,
                 Token = _tokenServices.CreateToken(usuario),
                 Nombres = usuario.Nombres,
-                Apellidos = usuario.Apellidos 
+                Apellidos = usuario.Apellidos
             };
 
         }
@@ -70,7 +72,7 @@ namespace WebApi.Controllers
 
             var resultado = await _userManager.CreateAsync(usuario, registrarDto.Password);
 
-            if(!resultado.Succeeded) 
+            if (!resultado.Succeeded)
             {
                 return BadRequest(new CodeErrorResponse(400, "Error al registrar el usuario"));
             }
@@ -82,13 +84,43 @@ namespace WebApi.Controllers
                 Token = _tokenServices.CreateToken(usuario),
                 Email = usuario.Email,
                 Username = usuario.UserName,
-                
+
             };
         }
 
+        [HttpPut("actualizar")]
+        public async Task<ActionResult<UsuarioDto>> ActualizarUsario(UsuarioDto usuarioDto)
+        {
+            //var usuario = await _userManager.FindByIdAsync(id);
+
+            var usuario = await _userManager.BuscarUsarioById(User);
+            if (usuario == null)
+            {
+                return NotFound(new CodeErrorResponse(404, "El usuario no existe"));
+            }
+
+            usuario.Nombres = usuarioDto.Nombres;
+            usuario.Apellidos = usuarioDto.Apellidos;
+            usuario.Email = usuarioDto.Email;
+            usuario.Imagen = usuarioDto.Imagen;
+            var resultado = await _userManager.UpdateAsync(usuario);
+
+            if (!resultado.Succeeded)
+            {
+
+                return BadRequest(new CodeErrorResponse(400, "No se pudo actualizar el usuario"));
+
+            }
+            else
+            {
+                return Ok("Todo bien");
+            }
+        }
+
+
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<UsuarioDto>> GetUsuario() 
+        public async Task<ActionResult<UsuarioDto>> GetUsuario()
         {
             var usuario = await _userManager.BuscarUsuarioAsync(User);
 
@@ -105,7 +137,7 @@ namespace WebApi.Controllers
 
         [HttpGet("emailvalid")]
 
-        public async Task<ActionResult<bool>> ValidarEmail([FromQuery]string email)
+        public async Task<ActionResult<bool>> ValidarEmail([FromQuery] string email)
         {
             var usuario = await _userManager.FindByEmailAsync(email);
 
@@ -122,7 +154,7 @@ namespace WebApi.Controllers
 
             var usuario = await _userManager.BuscarDireccionUsuarioAsync(User);
 
-            return  _mapper.Map<Direccion, DireccionDto>(usuario.Direccion);
+            return _mapper.Map<Direccion, DireccionDto>(usuario.Direccion);
 
         }
 

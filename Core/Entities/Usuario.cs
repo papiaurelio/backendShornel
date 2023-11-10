@@ -11,7 +11,7 @@ namespace Core.Entities
     {
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
-
         public Direccion Direccion { get; set; }
+        public string Imagen { get; set; }
     }
 }

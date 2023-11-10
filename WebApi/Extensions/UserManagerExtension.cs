@@ -28,5 +28,15 @@ namespace WebApi.Extensions
 
             return usuario;
         }
+
+        public static async Task<Usuario> BuscarUsarioById
+                (this UserManager<Usuario> input, ClaimsPrincipal usr)
+        {
+            var Id = usr.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var usuario = await input.Users.SingleOrDefaultAsync(x => x.Id == Id);
+
+            return usuario;
+        }
     }
 }

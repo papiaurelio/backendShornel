@@ -28,6 +28,7 @@ namespace BusinessLogic.Logic
             var claims = new List<Claim> 
             {
                 new Claim(JwtRegisteredClaimNames.Email, usuario.Email),
+                new Claim(JwtRegisteredClaimNames.NameId, usuario.Id),
                 new Claim(JwtRegisteredClaimNames.Name, usuario.Nombres),
                 new Claim(JwtRegisteredClaimNames.FamilyName, usuario.Apellidos),
                 new Claim("username", usuario.UserName)
