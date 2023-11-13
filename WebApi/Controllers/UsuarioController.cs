@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,15 +23,20 @@ namespace WebApi.Controllers
         private readonly SignInManager<Usuario> _signInManager;
         private readonly ITokenService _tokenServices;
         private readonly IMapper _mapper;
+        private readonly IGenericSeguridadRepository<Usuario> _seguridadRepository;
+        private readonly RoleManager<IdentityRole> _rolManager;
 
         //private readonly IPasswordHasher<Usuario> _passwordHasher;
         public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager,
-            ITokenService tokenServices, IMapper maper)
+            ITokenService tokenServices, IMapper maper, IGenericSeguridadRepository<Usuario> seguridadRepository,
+            RoleManager<IdentityRole> rolManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenServices = tokenServices;
             _mapper = maper;
+            _seguridadRepository = seguridadRepository;
+            _rolManager = rolManager;
         }
 
         [HttpPost("login")]
@@ -51,7 +59,7 @@ namespace WebApi.Controllers
             {
                 Email = usuario.Email,
                 Username = usuario.UserName,
-                Token = _tokenServices.CreateToken(usuario),
+                //Token = _tokenServices.CreateToken(usuario),
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos
             };
@@ -81,7 +89,7 @@ namespace WebApi.Controllers
             {
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos,
-                Token = _tokenServices.CreateToken(usuario),
+                //Token = _tokenServices.CreateToken(usuario),
                 Email = usuario.Email,
                 Username = usuario.UserName,
 
@@ -117,6 +125,35 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("pagination")]
+        public async Task<ActionResult<Pagination<UsuarioDto>>> GetUsuarios([FromQuery] UsuarioSpecificationParams usuarioParams)
+        {
+            var spec = new UsuarioSpecification(usuarioParams);
+            var usuarios = await _seguridadRepository.GetAllWithSpec(spec);
+
+            var specCount = new UsuarioForCountingSpecification(usuarioParams);
+            var totalUsuarios = await _seguridadRepository.CountAsync(specCount);
+
+            var rounded = Math.Ceiling(Convert.ToDecimal(totalUsuarios) / Convert.ToDecimal( usuarioParams.PageSize));
+            var totalPages = Convert.ToInt32(rounded);
+
+            var data = _mapper.Map<IReadOnlyList<Usuario>, IReadOnlyList<UsuarioDto>>(usuarios);
+
+            return Ok(
+                new Pagination<UsuarioDto>
+                {
+                    Count = totalUsuarios,
+                    Data = data,
+                    PageCount = totalPages,
+                    PageIndex = usuarioParams.PageIndex,
+                    PageSize = usuarioParams.PageSize
+                }
+                );
+                
+        }
+
+
 
         [Authorize]
         [HttpGet]
@@ -130,7 +167,7 @@ namespace WebApi.Controllers
                 Apellidos = usuario.Apellidos,
                 Email = usuario.Email,
                 Username = usuario.UserName,
-                Token = _tokenServices.CreateToken(usuario)
+                //Token = _tokenServices.CreateToken(usuario)
             };
 
         }
@@ -171,6 +208,48 @@ namespace WebApi.Controllers
             if (resultado.Succeeded) return Ok(_mapper.Map<Direccion, DireccionDto>(usuario.Direccion));
 
             return BadRequest("No se pudo actualizar la dirección");
+        }
+
+        [Authorize]
+        [HttpPut("role/{id}")]
+        public async Task<ActionResult<UsuarioDto>> UpdateRole(string id, RoleDto roleParam)
+        {
+            var role = await _rolManager.FindByNameAsync(roleParam.NombreRole);
+            if(role == null) return NotFound(new CodeErrorResponse(404, "El rol no exite"));
+
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario == null) return NotFound(new CodeErrorResponse(404, "El usuario no existe."));
+
+            var usuarioDto = _mapper.Map<Usuario,UsuarioDto>(usuario);
+
+            if (roleParam.Status)
+            {
+                var resultado = await _userManager.AddToRoleAsync(usuario, roleParam.NombreRole);
+                if (resultado.Succeeded)
+                {
+                    usuarioDto.Administrador = true;
+                }
+
+                if (resultado.Errors.Any())
+                {
+                    if(resultado.Errors.Where(x=> x.Code == "UserAlreadyInRole").Any())
+                    {
+                        usuarioDto.Administrador = true;
+                    }
+                }
+
+            }
+            else
+            {
+                var resultado = await _userManager.RemoveFromRoleAsync(usuario, roleParam.NombreRole);
+
+                if (resultado.Succeeded)
+                {
+                    usuarioDto.Administrador = false;
+                }
+            }
+
+            return usuarioDto;
         }
 
     }

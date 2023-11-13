@@ -31,9 +31,11 @@ public class Program
                 //seguridad
 
                 var userManager = services.GetRequiredService<UserManager<Usuario>>();
+                //role
+                var rolManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 var identityContext = services.GetRequiredService<SeguridadDbContext>();
                 await identityContext.Database.MigrateAsync();
-                await SeguridadDbContextData.SeedUsersAsync(userManager);
+                await SeguridadDbContextData.SeedUsersAsync(userManager, rolManager);
             }
             catch (Exception e)
             {

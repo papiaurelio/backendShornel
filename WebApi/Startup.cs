@@ -2,6 +2,7 @@
 using BusinessLogic.Logic;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
@@ -34,6 +36,9 @@ public class Startup
         //creacion entidades Seguridad
         var builder = services.AddIdentityCore<Usuario>();
         builder = new IdentityBuilder(builder.UserType, builder.Services);
+        builder.AddRoles<IdentityRole>();
+
+
         builder.AddEntityFrameworkStores<SeguridadDbContext>();
         builder.AddSignInManager<SignInManager<Usuario>>();
 
@@ -53,6 +58,7 @@ public class Startup
 
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+        services.AddScoped(typeof(IGenericSeguridadRepository<>), (typeof(GenericSeguridadRepository<>)));
         services.AddDbContext<StoreDbContext>(opt =>
         {
             opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -69,6 +75,7 @@ public class Startup
             return ConnectionMultiplexer.Connect(configuracion);
         });
 
+        services.TryAddSingleton<ISystemClock, SystemClock>();
         services.AddTransient<IProductoRepository, ProductoRepository>();
         services.AddScoped<ICarritoCompraRepository, CarritoCompraRepository>();
         services.AddControllers();

@@ -32,7 +32,7 @@ namespace WebApi.Controllers
             var specCount = new ProductoForCoutingSpecification(productoParams);
             var totalProductos = await _productoRepository.CountAsync(specCount);
 
-            var rounded = Math.Ceiling(Convert.ToDecimal(totalProductos / productoParams.PageSize));
+            var rounded = Math.Ceiling(Convert.ToDecimal(totalProductos / Convert.ToDecimal(productoParams.PageSize)));
             var totalPages = Convert.ToInt32(rounded);
 
             var data = _mapper.Map<IReadOnlyList<Producto>, IReadOnlyList<ProductoDto>>(productos);
