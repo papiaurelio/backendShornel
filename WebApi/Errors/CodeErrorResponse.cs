@@ -14,6 +14,7 @@
             {
                 400 => "El Request contiene errores",
                 401 => "Autorización denegada",
+                403 => "Sin autorización",
                 404 => "No se econtraron resultados",
                 405 => "Solicitud no válida",
                 415 => "Error de formato",

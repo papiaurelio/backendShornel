@@ -19,7 +19,7 @@
   },
   {
     "Nombre": "Camiseta",
-    "Descripcion": "Camisa para paseos al aire libre",
+    "Descripcion": "Camiseta simple",
     "Stock": 500,
     "MarcaId": 3,
     "CategoriaId": 1,
@@ -28,7 +28,7 @@
   },
   {
     "Nombre": "Zapato",
-    "Descripcion": "Zapato para eventos especiales",
+    "Descripcion": "Zapato para salir",
     "Stock": 1000,
     "MarcaId": 4,
     "CategoriaId": 1,
@@ -36,8 +36,8 @@
     "Imagen": ""
   },
   {
-    "Nombre": "Tenis",
-    "Descripcion": "Para correr al aire libre",
+    "Nombre": "Tenis fuchibol",
+    "Descripcion": "Fuchibol",
     "Stock": 600,
     "MarcaId": 2,
     "CategoriaId": 3,
@@ -45,8 +45,8 @@
     "Imagen": ""
   },
   {
-    "Nombre": "Bordado",
-    "Descripcion": "Traje de Bano",
+    "Nombre": "Bikini",
+    "Descripcion": "Bikini pati",
     "Stock": 200,
     "MarcaId": 1,
     "CategoriaId": 4,

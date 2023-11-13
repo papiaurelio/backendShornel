@@ -23,7 +23,7 @@ namespace BusinessLogic.Logic
             this._configuration = configuration;
             this._key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:Key"]));
         }
-        public string CreateToken(Usuario usuario)
+        public string CreateToken(Usuario usuario, IList<string> roles)
         {
             var claims = new List<Claim> 
             {
@@ -34,12 +34,20 @@ namespace BusinessLogic.Logic
                 new Claim("username", usuario.UserName)
             };
 
+            if(roles != null && roles.Count > 0 ) 
+            {
+                foreach( var role in roles ) 
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
+            }
+
             var credencials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenConfig = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(30),
                 SigningCredentials = credencials,
                 Issuer = _configuration["Token:Issuer"]
             };

@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         private readonly IGenericSeguridadRepository<Usuario> _seguridadRepository;
         private readonly RoleManager<IdentityRole> _rolManager;
 
-        //private readonly IPasswordHasher<Usuario> _passwordHasher;
+        private readonly IPasswordHasher<Usuario> _passwordHasher;
         public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager,
             ITokenService tokenServices, IMapper maper, IGenericSeguridadRepository<Usuario> seguridadRepository,
             RoleManager<IdentityRole> rolManager)
@@ -55,13 +55,17 @@ namespace WebApi.Controllers
                 return Unauthorized(new CodeErrorResponse(401, "Contraseña incorrecta"));
             }
 
+            var roles = await _userManager.GetRolesAsync(usuario);
+
             return new UsuarioDto
             {
                 Email = usuario.Email,
                 Username = usuario.UserName,
-                //Token = _tokenServices.CreateToken(usuario),
+                Token = _tokenServices.CreateToken(usuario, roles),
                 Nombres = usuario.Nombres,
-                Apellidos = usuario.Apellidos
+                Apellidos = usuario.Apellidos,
+                Imagen = usuario.Imagen,
+                Administrador = roles.Contains("Administrador") ? true : false
             };
 
         }
@@ -92,12 +96,13 @@ namespace WebApi.Controllers
                 //Token = _tokenServices.CreateToken(usuario),
                 Email = usuario.Email,
                 Username = usuario.UserName,
-
+                Administrador = false
             };
         }
 
+        [Authorize]
         [HttpPut("actualizar")]
-        public async Task<ActionResult<UsuarioDto>> ActualizarUsario(UsuarioDto usuarioDto)
+        public async Task<ActionResult<UsuarioDto>> ActualizarUsario(RegistrarDto usuarioDto)
         {
             //var usuario = await _userManager.FindByIdAsync(id);
 
@@ -111,6 +116,12 @@ namespace WebApi.Controllers
             usuario.Apellidos = usuarioDto.Apellidos;
             usuario.Email = usuarioDto.Email;
             usuario.Imagen = usuarioDto.Imagen;
+
+            if (!string.IsNullOrEmpty(usuarioDto.Password))
+            {
+                usuario.PasswordHash = _passwordHasher.HashPassword(usuario, usuarioDto.Password);
+            }
+
             var resultado = await _userManager.UpdateAsync(usuario);
 
             if (!resultado.Succeeded)
@@ -119,13 +130,23 @@ namespace WebApi.Controllers
                 return BadRequest(new CodeErrorResponse(400, "No se pudo actualizar el usuario"));
 
             }
-            else
+
+            var roles = await _userManager.GetRolesAsync(usuario);
+
+            return new UsuarioDto
             {
-                return Ok("Todo bien");
-            }
+                Id = usuario.Id,
+                Nombres = usuario.Nombres,
+                Apellidos = usuario.Apellidos,
+                Email = usuario.Email,
+                Username = usuario.UserName,
+                Imagen = usuario.Imagen,
+                Administrador = roles.Contains("Administrador")
+            };
+
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpGet("pagination")]
         public async Task<ActionResult<Pagination<UsuarioDto>>> GetUsuarios([FromQuery] UsuarioSpecificationParams usuarioParams)
         {
@@ -153,6 +174,30 @@ namespace WebApi.Controllers
                 
         }
 
+        [Authorize(Roles = "Administrador")]
+        [HttpGet("account/{id}")]
+        public async Task<ActionResult<UsuarioDto>> GetUsuarioById(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario == null)
+            {
+                return NotFound(new CodeErrorResponse(404, "El usuario no existe"));
+            }
+
+            var roles = await _userManager.GetRolesAsync(usuario);
+
+            return new UsuarioDto
+            {
+                Id = usuario.Id,
+                Nombres = usuario.Nombres,
+                Apellidos = usuario.Apellidos,
+                Email = usuario.Email,
+                Username = usuario.UserName,
+                Imagen = usuario.Imagen,
+                Administrador = roles.Contains("Administrador") ? true : false
+            };
+        }
+
 
 
         [Authorize]
@@ -161,13 +206,17 @@ namespace WebApi.Controllers
         {
             var usuario = await _userManager.BuscarUsuarioAsync(User);
 
+            var roles = await _userManager.GetRolesAsync(usuario);
+
             return new UsuarioDto
             {
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos,
                 Email = usuario.Email,
                 Username = usuario.UserName,
+                Imagen = usuario.Imagen,
                 //Token = _tokenServices.CreateToken(usuario)
+                Administrador = roles.Contains("Administrador") ? true: false
             };
 
         }
@@ -210,7 +259,7 @@ namespace WebApi.Controllers
             return BadRequest("No se pudo actualizar la dirección");
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpPut("role/{id}")]
         public async Task<ActionResult<UsuarioDto>> UpdateRole(string id, RoleDto roleParam)
         {

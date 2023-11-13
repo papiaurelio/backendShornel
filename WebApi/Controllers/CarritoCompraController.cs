@@ -2,6 +2,7 @@
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -10,10 +11,12 @@ namespace WebApi.Controllers
     public class CarritoCompraController : BaseApiController
     {
         private readonly ICarritoCompraRepository _carritoRepository;
-
-        public CarritoCompraController(ICarritoCompraRepository carritoRepository)
+        //private readonly UserManager<Usuario> _userManager;
+        public CarritoCompraController(ICarritoCompraRepository carritoRepository,
+            UserManager<Usuario> userManager)
         {
             _carritoRepository = carritoRepository;
+            //_userManager = userManager;
         }
 
         [Authorize]

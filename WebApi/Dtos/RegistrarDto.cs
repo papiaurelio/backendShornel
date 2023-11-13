@@ -11,5 +11,6 @@
         public string Apellidos { get; set; }
 
         public string Password { get; set; }
+        public string Imagen { get; set; }
     }
 }
