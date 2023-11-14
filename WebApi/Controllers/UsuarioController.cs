@@ -59,6 +59,7 @@ namespace WebApi.Controllers
 
             return new UsuarioDto
             {
+                Id = usuario.Id,
                 Email = usuario.Email,
                 Username = usuario.UserName,
                 Token = _tokenServices.CreateToken(usuario, roles),
@@ -91,6 +92,7 @@ namespace WebApi.Controllers
 
             return new UsuarioDto
             {
+                Id = usuario.Id,
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos,
                 //Token = _tokenServices.CreateToken(usuario),
