@@ -12,20 +12,26 @@ namespace Core.Entities.OrdenCompra
         {
             
         }
-        public OrdenCompras(string idComprador, string correoComprador, 
+        public OrdenCompras(string idComprador, string correoComprador, bool envio, Direccion direccion,
             IReadOnlyList<OrdenItem> orderItems, decimal subTotal)
         {
             IdComprador = idComprador;
             CorreoComprador = correoComprador;
             OrderItems = orderItems;
             SubTotal = subTotal;
+
+            if (envio) { direccion = null; }
+
+            Direccion = direccion;
+
         }
 
         public string IdComprador { get; set; }
         public string CorreoComprador { get; set; }
         public DateTimeOffset FechaOrdenCompra { get; set; } = DateTimeOffset.Now;
 
-        public Direccion DireccionEnvio { get; set; } = null;
+        public int DireccionId { get; set; }
+        public Direccion Direccion { get; set; }
 
         public bool Envio { get; set; } = false;
 

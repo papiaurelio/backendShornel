@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities.OrdenCompra
 {
-    public class Direccion
+    public class Direccion : ClaseBase
     {
         public Direccion()
         {
@@ -15,6 +15,7 @@ namespace Core.Entities.OrdenCompra
 
         public Direccion(int id, string direccionCalle, string ciudad, string departamento)
         {
+            Id = id;
             DireccionCalle = direccionCalle;
             Ciudad = ciudad;
             Departamento = departamento;

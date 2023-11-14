@@ -33,6 +33,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenServices>();
+        services.AddScoped<IOrdenCompraServices, OrdenComprasServices>();
         //creacion entidades Seguridad
         var builder = services.AddIdentityCore<Usuario>();
         builder = new IdentityBuilder(builder.UserType, builder.Services);

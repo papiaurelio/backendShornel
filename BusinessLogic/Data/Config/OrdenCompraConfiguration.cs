@@ -13,10 +13,7 @@ namespace BusinessLogic.Data.Config
     {
         public void Configure(EntityTypeBuilder<OrdenCompras> builder)
         {
-            builder.OwnsOne(o => o.DireccionEnvio, x =>
-            {
-                x.WithOwner();
-            });
+            builder.HasOne(d => d.Direccion).WithMany().HasForeignKey(oc => oc.DireccionId);
 
             builder.Property(t => t.PrecioEnvio)
                 .HasColumnType("decimal(18,2)");
