@@ -32,6 +32,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ITokenService, TokenServices>();
         services.AddScoped<IOrdenCompraServices, OrdenComprasServices>();
         //creacion entidades Seguridad

@@ -54,28 +54,6 @@ namespace BusinessLogic.Data.Migrations
                     b.ToTable("Marca");
                 });
 
-            modelBuilder.Entity("Core.Entities.OrdenCompra.Direccion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Ciudad")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Departamento")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DireccionCalle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Direccion");
-                });
-
             modelBuilder.Entity("Core.Entities.OrdenCompra.OrdenCompras", b =>
                 {
                     b.Property<int>("Id")
@@ -86,9 +64,6 @@ namespace BusinessLogic.Data.Migrations
 
                     b.Property<string>("CorreoComprador")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DireccionId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Envio")
                         .HasColumnType("bit");
@@ -113,8 +88,6 @@ namespace BusinessLogic.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DireccionId");
 
                     b.ToTable("OrdenCompras");
                 });
@@ -184,17 +157,6 @@ namespace BusinessLogic.Data.Migrations
                     b.HasIndex("MarcaId");
 
                     b.ToTable("Producto");
-                });
-
-            modelBuilder.Entity("Core.Entities.OrdenCompra.OrdenCompras", b =>
-                {
-                    b.HasOne("Core.Entities.OrdenCompra.Direccion", "Direccion")
-                        .WithMany()
-                        .HasForeignKey("DireccionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Direccion");
                 });
 
             modelBuilder.Entity("Core.Entities.OrdenCompra.OrdenItem", b =>

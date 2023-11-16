@@ -12,27 +12,22 @@ namespace Core.Entities.OrdenCompra
         {
             
         }
-        public OrdenCompras(string idComprador, string correoComprador, bool envio, Direccion direccion,
+        public OrdenCompras(string idComprador, string correoComprador, bool envio,
             IReadOnlyList<OrdenItem> orderItems, decimal subTotal)
         {
             IdComprador = idComprador;
             CorreoComprador = correoComprador;
             OrderItems = orderItems;
             SubTotal = subTotal;
-
-            if (envio) { direccion = null; }
-
-            Direccion = direccion;
-
+            //if (envio) { direccion = null; }
+            //Direccion = direccion;
         }
 
         public string IdComprador { get; set; }
         public string CorreoComprador { get; set; }
         public DateTimeOffset FechaOrdenCompra { get; set; } = DateTimeOffset.Now;
-
-        public int DireccionId { get; set; }
-        public Direccion Direccion { get; set; }
-
+        //public int DireccionId { get; set; }
+        //public Direccion Direccion { get; set; }
         public bool Envio { get; set; } = false;
 
         public IReadOnlyList<OrdenItem> OrderItems { get; set; }
@@ -45,9 +40,9 @@ namespace Core.Entities.OrdenCompra
 
         public decimal PrecioEnvio { get; set; } = 0;
 
-        public decimal TotalFactura()
+        public decimal GetTotal()
         {
-            return (decimal)(SubTotal + PrecioEnvio) * (1.15m);
+            return (decimal)(SubTotal + PrecioEnvio) * (decimal) 1.15;
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Entities;
+using Core.Entities.OrdenCompra;
 
 namespace WebApi.Dtos.AutoMapper
 {
@@ -15,7 +16,15 @@ namespace WebApi.Dtos.AutoMapper
             
             CreateMap<Usuario, UsuarioDto>().ReverseMap();
 
-            CreateMap<DireccionDto, Core.Entities.OrdenCompra.Direccion>();
+
+
+            CreateMap<OrdenCompras, OrdenCompraResponseDto>()
+                .ForMember(o => o.Status, x=> x.MapFrom(y => y.Status.ToString()));
+
+            CreateMap<OrdenItem, OrdenItemResponseDto>()
+                .ForMember(o => o.ProductoId, x => x.MapFrom(y => y.ProductoOrdenado.ProductoOrdenadoId))
+                .ForMember(o => o.ProductoName, x => x.MapFrom(y => y.ProductoOrdenado.ProductoNombre))
+                .ForMember(o => o.ProductoImagen, x => x.MapFrom(y => y.ProductoOrdenado.ImagenUrl));
         }
     }
 }

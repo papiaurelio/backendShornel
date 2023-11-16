@@ -20,7 +20,7 @@ namespace BusinessLogic.Data
         public DbSet<OrdenCompras> OrdenCompras { get; set; }
         public DbSet<OrdenItem> OrdenItem { get; set; }
 
-        public DbSet<Core.Entities.OrdenCompra.Direccion> Direccion { get; set; }
+        //public DbSet<Core.Entities.OrdenCompra.Direccion> Direccion { get; set; }
 
         //Sobreescribir las restricciones 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

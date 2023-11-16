@@ -13,5 +13,6 @@ namespace Core.Interfaces
         Task<CarritoDeCompras> UpdateCarritoDeComprasAsync(CarritoDeCompras carritoDeCompras);
 
         Task<bool> DeleteCarritoComprasAsync(string carritoId);
+
     }
 }

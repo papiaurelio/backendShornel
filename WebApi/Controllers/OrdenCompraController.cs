@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Errors;
@@ -19,6 +20,7 @@ namespace WebApi.Controllers
         private readonly IOrdenCompraServices _ordenCompraServices;
         private readonly IMapper _mapper;
         private readonly UserManager<Usuario> _userManager;
+
         public OrdenCompraController(IOrdenCompraServices ordenCompraServices, IMapper mapper, 
             UserManager<Usuario> userManager)
         {
@@ -28,22 +30,50 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrdenCompras>> AddOrdenCompra(OrdenComprasDto ordenCompraDto)
+        public async Task<ActionResult<OrdenCompraResponseDto>> AddOrdenCompra(OrdenComprasDto ordenCompraDto)
         {
-            var usuario = await _userManager.BuscarUsarioById(User);
+            var usuario = await _userManager.BuscarUsuarioAsync(User);
+
+            if (usuario  == null)
+            {
+                return BadRequest(new CodeErrorResponse(400, "Error en la orden de compra, error al validar usuario "));
+            }
             var email = usuario.Email;
             var id = usuario.Id;
 
-            var direccion = _mapper.Map<DireccionDto, Core.Entities.OrdenCompra.Direccion>(ordenCompraDto.Direccion);
-
-            var ordenCompra = await _ordenCompraServices.AddOrdenCompraAsync(id, email, ordenCompraDto.Envio, direccion);
+            var ordenCompra = await _ordenCompraServices.AddOrdenCompraAsync(id, email, ordenCompraDto.Envio);
 
             if(ordenCompra == null)
             {
-                return BadRequest(new CodeErrorResponse(400, "Error en la orden de compra"));
+                return BadRequest(new CodeErrorResponse(400, "Error en la orden de compra, rebice sus productos"));
             }
 
-            return Ok(ordenCompra);
+            return Ok(_mapper.Map<OrdenCompras, OrdenCompraResponseDto>(ordenCompra));
+        }
+
+        [HttpGet("my-orders")]
+        public async Task<ActionResult<IReadOnlyList<OrdenCompraResponseDto>>> GetOrdenCompras()
+        {
+            var usuario = await _userManager.BuscarUsuarioAsync(User);
+            var ordenCompras = await _ordenCompraServices.GetOrdenComprasByUserEmailAsync(usuario.Email);
+            //return Ok(ordenCompras);
+
+            return Ok(_mapper.Map<IReadOnlyList<OrdenCompras>, IReadOnlyList< OrdenCompraResponseDto>>(ordenCompras));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrdenCompraResponseDto>> GetOrdenComprasById(int id)
+        {
+            var usuario = await _userManager.BuscarUsuarioAsync(User);
+            var ordenCompra = await _ordenCompraServices.GetOrdenCompraByIdAsync(id, usuario.Email);
+            if(ordenCompra== null)
+            {
+                return NotFound(new CodeErrorResponse(404, "No se encontraron ordenes de compra"));
+            }
+
+            //return ordenCompra;
+
+            return _mapper.Map< OrdenCompras, OrdenCompraResponseDto > (ordenCompra);
         }
     }
 }

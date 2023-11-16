@@ -64,5 +64,21 @@ namespace BusinessLogic.Logic
 
             return await _context.SaveChangesAsync();
         }
+
+        public void AddEntity(T entity)
+        {
+            _context.Set<T>().Add(entity);
+        }
+
+        public void UpdateEntity(T entity)
+        {
+            _context.Set<T>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Delete(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+        }
     }
 }

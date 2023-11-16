@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.OrdenCompra;
 using Core.Interfaces;
 using StackExchange.Redis;
 using System;
@@ -25,8 +26,7 @@ namespace BusinessLogic.Logic
 
         public async Task<CarritoDeCompras> GetCarritoCompraAsync(string carritoId)
         {
-            var data= await _database.StringGetAsync(carritoId);
-
+            var data = await _database.StringGetAsync(carritoId);
             return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<CarritoDeCompras>(data);
         }
 
@@ -39,5 +39,6 @@ namespace BusinessLogic.Logic
             return await GetCarritoCompraAsync(carritoDeCompras.Id);
 
         }
+
     }
 }

@@ -10,7 +10,7 @@ namespace Core.Interfaces
     public interface IOrdenCompraServices
     {
         Task<OrdenCompras> AddOrdenCompraAsync(string idComprador, string emailComprador,
-            bool envio, Direccion direccion);
+            bool envio);
 
         Task<IReadOnlyList<OrdenCompras>> GetOrdenComprasByUserEmailAsync(string email);
 

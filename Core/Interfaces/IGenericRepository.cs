@@ -23,5 +23,11 @@ namespace Core.Interfaces
 
         Task<int> Update(T entity);
 
+        void AddEntity(T entity);
+
+        void UpdateEntity(T entity);
+
+        void Delete(T entity);
+
     }
 }
