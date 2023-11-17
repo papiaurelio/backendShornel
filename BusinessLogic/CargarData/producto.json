@@ -1,56 +1,155 @@
 [
   {
-    "Nombre": "Pantalon",
-    "Descripcion": "Pantalon casual para eventos sports",
+    "Nombre": "Giftcard Playstation $50",
+    "Descripcion": "$50 dólares para cuentas de PlayStation",
     "Stock": 100,
-    "MarcaId": 1,
-    "CategoriaId": 1,
-    "Precio": 120.00,
-    "Imagen": ""
-  },
-  {
-    "Nombre": "Camisa",
-    "Descripcion": "Camisa para eventos casuales",
-    "Stock": 600,
-    "MarcaId": 2,
-    "CategoriaId": 2,
-    "Precio": 60.00,
-    "Imagen": ""
-  },
-  {
-    "Nombre": "Camiseta",
-    "Descripcion": "Camiseta simple",
-    "Stock": 500,
-    "MarcaId": 3,
-    "CategoriaId": 1,
-    "Precio": 50.00,
-    "Imagen": ""
-  },
-  {
-    "Nombre": "Zapato",
-    "Descripcion": "Zapato para salir",
-    "Stock": 1000,
     "MarcaId": 4,
     "CategoriaId": 1,
-    "Precio": 120.00,
-    "Imagen": ""
+    "Precio": 60,
+    "Imagen": "https://hl-grocery-prod-master.imgix.net/products/2a07f914f5b5ab2b36c8fd2595b29c91058ffd53?fill=solid&fit=fill&fm=jpg&h=600&pad=13&q=92&trim=auto&trim-md=0&w=600"
   },
   {
-    "Nombre": "Tenis fuchibol",
-    "Descripcion": "Fuchibol",
-    "Stock": 600,
+    "Nombre": "Giftcard HBO 1 mes",
+    "Descripcion": "Un mes de HBO, para amantes de las series",
+    "Stock": 100,
+    "MarcaId": 7,
+    "CategoriaId": 1,
+    "Precio": 8,
+    "Imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGmX9OppSShA3ERy-J0HZIkiVhAP3D0Dgl0KW6LJLAF5gdoSbr1XLnYeQ5mFk3DoigUBE&usqp=CAU"
+  },
+  {
+    "Nombre": "Giftcard Playstation $10",
+    "Descripcion": "$10 dólares para cuentas de PlayStation",
+    "Stock": 120,
+    "MarcaId": 4,
+    "CategoriaId": 1,
+    "Precio": 12.00,
+    "Imagen": "https://hl-grocery-prod-master.imgix.net/products/2a07f914f5b5ab2b36c8fd2595b29c91058ffd53?fill=solid&fit=fill&fm=jpg&h=600&pad=13&q=92&trim=auto&trim-md=0&w=600"
+  },
+  {
+    "Nombre": "Giftcard Playstation $25",
+    "Descripcion": "Giftcard Playstation $25 para juegos",
+    "Stock": 500,
+    "MarcaId": 4,
+    "CategoriaId": 1,
+    "Precio": 30.00,
+    "Imagen": "https://play-lh.googleusercontent.com/zi6QgTtIiAnGqQMizfoj2LnE85kzHyZlgTruSzJ7Zw_79NAmB3fhxuDegwxby7P0yw=s256-rw"
+  },
+  {
+    "Nombre": "Giftcard Xbox $10",
+    "Descripcion": "Xbox giftcard para juegos $10",
+    "Stock": 50,
     "MarcaId": 2,
-    "CategoriaId": 3,
-    "Precio": 120.00,
-    "Imagen": ""
+    "CategoriaId": 1,
+    "Precio": 12.00,
+    "Imagen": "https://i.pinimg.com/564x/87/37/6e/87376e9350fb514aa045c9425df38d64.jpg"
   },
   {
-    "Nombre": "Bikini",
-    "Descripcion": "Bikini pati",
+    "Nombre": "Giftcard HBO 3 meses",
+    "Descripcion": "Un 3 meses de HBO, para amantes de las series",
+    "Stock": 100,
+    "MarcaId": 7,
+    "CategoriaId": 1,
+    "Precio": 20,
+    "Imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGmX9OppSShA3ERy-J0HZIkiVhAP3D0Dgl0KW6LJLAF5gdoSbr1XLnYeQ5mFk3DoigUBE&usqp=CAU"
+  },
+  {
+    "Nombre": "Giftcard Disney 1 año",
+    "Descripcion": "Disney por 1 año para ver peliculas y series",
+    "Stock": 50,
+    "MarcaId": 6,
+    "CategoriaId": 1,
+    "Precio": 100.00,
+    "Imagen": "https://helios-i.mashable.com/imagery/articles/06yfRWhQUlsIOqsGfT4msUQ/images-22.fill.size_256x256.v1697833536.png"
+  },
+  {
+    "Nombre": "GamePass xbox 1 mes",
+    "Descripcion": "Xbox gamepass 1 mes",
+    "Stock": 50,
+    "MarcaId": 2,
+    "CategoriaId": 1,
+    "Precio": 12.00,
+    "Imagen": "https://i.pinimg.com/564x/87/37/6e/87376e9350fb514aa045c9425df38d64.jpg"
+  },
+  {
+    "Nombre": "Giftcard HBO 1 año",
+    "Descripcion": "Un año de HBO, para amantes de las series",
+    "Stock": 100,
+    "MarcaId": 7,
+    "CategoriaId": 1,
+    "Precio": 60,
+    "Imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGmX9OppSShA3ERy-J0HZIkiVhAP3D0Dgl0KW6LJLAF5gdoSbr1XLnYeQ5mFk3DoigUBE&usqp=CAU"
+  },
+  {
+    "Nombre": "Giftcard neflix 3 meses",
+    "Descripcion": "3 meses para Netflix",
+    "Stock": 600,
+    "MarcaId": 3,
+    "CategoriaId": 1,
+    "Precio": 40.00,
+    "Imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiW85P6igzxUBIOj5Cy8qTnOq-ryuY8RrvradmmNkO9AzmJC_NBEhynH7S796XuUyqSjQ&usqp=CAU"
+  },
+  {
+    "Nombre": "Giftcard neflix 1 meses",
+    "Descripcion": "1 mes netflix",
     "Stock": 200,
+    "MarcaId": 3,
+    "CategoriaId": 1,
+    "Precio": 15.00,
+    "Imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiW85P6igzxUBIOj5Cy8qTnOq-ryuY8RrvradmmNkO9AzmJC_NBEhynH7S796XuUyqSjQ&usqp=CAU"
+  },
+  {
+    "Nombre": "Giftcard Microsoft azure $100 ",
+    "Descripcion": "$100 para gastar en azure",
+    "Stock": 10,
     "MarcaId": 1,
-    "CategoriaId": 4,
-    "Precio": 500.00,
-    "Imagen": ""
+    "CategoriaId": 1,
+    "Precio": 100.00,
+    "Imagen": "https://pcr.cloud-mercato.com/static/img/logos/azure.png"
+  },
+  {
+    "Nombre": "Giftcard Microsoft azure $10 ",
+    "Descripcion": "$10 para gastar en azure",
+    "Stock": 10,
+    "MarcaId": 1,
+    "CategoriaId": 1,
+    "Precio": 10.00,
+    "Imagen": "https://pcr.cloud-mercato.com/static/img/logos/azure.png"
+  },
+  {
+    "Nombre": "Microsoft Ofice 1 año",
+    "Descripcion": "Ofice por un año",
+    "Stock": 100,
+    "MarcaId": 1,
+    "CategoriaId": 3,
+    "Precio": 80.00,
+    "Imagen": "https://www.software.unam.mx/wp-content/uploads/2019/03/office-265.png"
+  },
+  {
+    "Nombre": "Microsoft Ofice 6 meses",
+    "Descripcion": "Ofice por 6 meses",
+    "Stock": 50,
+    "MarcaId": 1,
+    "CategoriaId": 3,
+    "Precio": 40.00,
+    "Imagen": "https://www.software.unam.mx/wp-content/uploads/2019/03/office-265.png"
+  },
+  {
+    "Nombre": "Microsoft Ofice 1 mes",
+    "Descripcion": "Ofice por 1 mes",
+    "Stock": 50,
+    "MarcaId": 1,
+    "CategoriaId": 3,
+    "Precio": 10.00,
+    "Imagen": "https://1000marcas.net/wp-content/uploads/2020/11/Microsoft-Office-logo.jpg"
+  },
+  {
+    "Nombre": "Giftcard Disney 1 mes",
+    "Descripcion": "Disney por 1 mes tarjeta de regalo",
+    "Stock": 50,
+    "MarcaId": 6,
+    "CategoriaId": 1,
+    "Precio": 10.00,
+    "Imagen": "https://helios-i.mashable.com/imagery/articles/06yfRWhQUlsIOqsGfT4msUQ/images-22.fill.size_256x256.v1697833536.png"
   }
 ]

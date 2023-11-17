@@ -1,20 +1,29 @@
 [
   {
-    "Nombre": "Nike"
+    "Nombre": "Microsoft"
   },
   {
-    "Nombre": "Adidas"
+    "Nombre": "Xbox"
   },
   {
-    "Nombre": "Reebok"
+    "Nombre": "Netflix"
   },
   {
-    "Nombre": "Baltazar"
+    "Nombre": "PlayStation"
   },
   {
-    "Nombre": "Dior"
+    "Nombre": "Adobe"
   },
   {
-    "Nombre": "Gucci"
+    "Nombre": "Disney"
+  },
+  {
+    "Nombre": "HBO"
+  },
+  {
+    "Nombre": "Crunchyrol"
+  },
+  {
+    "Nombre": "StarPlus"
   }
 ]
