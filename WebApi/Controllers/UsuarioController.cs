@@ -212,12 +212,13 @@ namespace WebApi.Controllers
 
             return new UsuarioDto
             {
+                Id = usuario.Id,
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos,
                 Email = usuario.Email,
                 Username = usuario.UserName,
                 Imagen = usuario.Imagen,
-                //Token = _tokenServices.CreateToken(usuario)
+                Token = _tokenServices.CreateToken(usuario, roles),
                 Administrador = roles.Contains("Administrador") ? true: false
             };
 

@@ -17,14 +17,14 @@ namespace WebApi.Controllers
             _marcaRepository = marcaRepository;
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Marca>>> GetMarcaAll()
         {
             return Ok(await _marcaRepository.GetAllAsync());
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
 
         public async Task<ActionResult<Marca>> GetMarcaById(int id)

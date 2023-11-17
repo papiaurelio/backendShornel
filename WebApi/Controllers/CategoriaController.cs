@@ -19,7 +19,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public async Task<ActionResult<IReadOnlyList<Categoria>>> GetCategoriaAll()
         {
             return  Ok(await _categoriaRepository.GetAllAsync());
@@ -27,7 +27,7 @@ namespace WebApi.Controllers
 
         [HttpGet("{id}")]
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public async Task<ActionResult<Categoria>> GetCategoriaById(int id)
         {
             return await _categoriaRepository.GetByIdAsync(id);
