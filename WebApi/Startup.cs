@@ -40,6 +40,17 @@ public class Startup
         builder = new IdentityBuilder(builder.UserType, builder.Services);
         builder.AddRoles<IdentityRole>();
 
+        builder.Services.Configure<IdentityOptions>(options =>
+        {
+            // Configuración de opciones de usuario predeterminadas.
+
+            // Se establece el conjunto de caracteres permitidos para los nombres de usuario.
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+            // Se establece la opción para requerir que los correos electrónicos de usuario sean únicos.
+            options.User.RequireUniqueEmail = true;
+        });
+
 
         builder.AddEntityFrameworkStores<SeguridadDbContext>();
         builder.AddSignInManager<SignInManager<Usuario>>();

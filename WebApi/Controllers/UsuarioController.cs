@@ -89,13 +89,14 @@ namespace WebApi.Controllers
             {
                 return BadRequest(new CodeErrorResponse(400, "Error al registrar el usuario"));
             }
+            var roles = await _userManager.GetRolesAsync(usuario);
 
             return new UsuarioDto
             {
                 Id = usuario.Id,
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos,
-                //Token = _tokenServices.CreateToken(usuario),
+                Token = _tokenServices.CreateToken(usuario, roles),
                 Email = usuario.Email,
                 Username = usuario.UserName,
                 Administrador = false
