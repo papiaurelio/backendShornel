@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desarrollo\\ASP\\NETStore\\NETStore\\Core\\Core.csproj": {}
+    "C:\\Users\\byron\\Documents\\DESARROLLO\\ASP\\backendShornel\\Core\\Core.csproj": {}
   },
   "projects": {
-    "D:\\Desarrollo\\ASP\\NETStore\\NETStore\\Core\\Core.csproj": {
+    "C:\\Users\\byron\\Documents\\DESARROLLO\\ASP\\backendShornel\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desarrollo\\ASP\\NETStore\\NETStore\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\byron\\Documents\\DESARROLLO\\ASP\\backendShornel\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "D:\\Desarrollo\\ASP\\NETStore\\NETStore\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\AURELIO\\.nuget\\packages\\",
-        "outputPath": "D:\\Desarrollo\\ASP\\NETStore\\NETStore\\Core\\obj\\",
+        "projectPath": "C:\\Users\\byron\\Documents\\DESARROLLO\\ASP\\backendShornel\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\byron\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\byron\\Documents\\DESARROLLO\\ASP\\backendShornel\\Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\AURELIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\byron\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

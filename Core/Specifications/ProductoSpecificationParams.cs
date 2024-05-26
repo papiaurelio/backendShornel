@@ -18,7 +18,7 @@ namespace Core.Specifications
 
         private const int MaxPageSize = 50;
 
-        private int _pageSize = 6; 
+        private int _pageSize = 9; 
 
         public string Search { get; set; }
 
