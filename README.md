@@ -1,6 +1,4 @@
 # backendShornel
-pati miamor <3
-
 # comandos
 
 ## Comandos docker
